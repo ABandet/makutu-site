@@ -1,0 +1,124 @@
+{{ define "content" }}
+<div class="page single">
+    <h1 class="single-title">{{ .Title }}</h1>
+
+    {{/* CSS pour l'effet Accordion / Collapsible */}}
+    <style>
+        .pub-category {
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+        }
+        .pub-category summary {
+            padding: 15px 20px;
+            background-color: #f8f9fa;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #005a9c;
+            cursor: pointer;
+            list-style: none; /* Cache la flèche par défaut */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+        .pub-category summary:hover {
+            background-color: #e9ecef;
+        }
+        /* Ajout d'une flèche personnalisée */
+        .pub-category summary::after {
+            content: "▼";
+            font-size: 0.8rem;
+            transition: transform 0.3s;
+        }
+        .pub-category[open] summary::after {
+            transform: rotate(180deg);
+        }
+        .pub-category[open] {
+            border-color: #005a9c;
+        }
+        .pub-category[open] summary {
+            border-bottom: 1px solid #ddd;
+            background-color: #005a9c;
+            color: white;
+        }
+        .pub-list-container {
+            padding: 20px;
+            max-height: 600px; /* Limite la hauteur si trop long */
+            overflow-y: auto;  /* Ajoute un scroll interne si besoin */
+        }
+    </style>
+
+    {{ $data := .Site.Data.hal_publications }}
+
+    {{ if $data }}
+        {{ $groups := slice
+            (dict "title" "Articles & Preprints" "fr" "Articles et prépublications" "codes" (slice "ART" "UNDEFINED"))
+            (dict "title" "PhD & HDR Theses" "fr" "Thèses et HDR" "codes" (slice "THESE" "HDR" "MEM"))
+            (dict "title" "Reports & Book Sections" "fr" "Rapports et Chapitres d'ouvrage" "codes" (slice "REPORT" "OUV" "COUV" "LECTURE"))
+            (dict "title" "Conferences & Communications" "fr" "Conférences et communications" "codes" (slice "COMM" "POSTER" "PROCEEDINGS" "PRESCONF"))
+        }}
+
+        <div class="publications-content">
+            {{ $displayedURIs := slice }}
+
+            {{ range $group := $groups }}
+                {{ $items := slice }}
+                {{ range $data.response.docs }}
+                    {{ $type := .docType_s }}
+                    {{ if reflect.IsSlice .docType_s }}{{ $type = index .docType_s 0 }}{{ end }}
+
+                    {{ if in $group.codes $type }}
+                        {{ $items = $items | append . }}
+                        {{ $displayedURIs = $displayedURIs | append .uri_s }}
+                    {{ end }}
+                {{ end }}
+
+                {{ if gt (len $items) 0 }}
+                    <details class="pub-category">
+                        <summary>
+                            {{ if eq $.Language.Lang "fr" }}{{ $group.fr }}{{ else }}{{ $group.title }}{{ end }}
+                            <span style="font-size: 0.9rem; opacity: 0.7;">({{ len $items }})</span>
+                        </summary>
+                        <div class="pub-list-container">
+                            <ul style="list-style: none; padding-left: 0;">
+                                {{ range $items }}
+                                    {{ partial "pub-item.html" . }}
+                                {{ end }}
+                            </ul>
+                        </div>
+                    </details>
+                {{ end }}
+            {{ end }}
+
+            {{/* Section Others */}}
+            {{ $others := slice }}
+            {{ range $data.response.docs }}
+                {{ if not (in $displayedURIs .uri_s) }}
+                    {{ $others = $others | append . }}
+                {{ end }}
+            {{ end }}
+
+            {{ if gt (len $others) 0 }}
+                <details class="pub-category">
+                    <summary>
+                        {{ if eq $.Language.Lang "fr" }}Autres publications{{ else }}Other Publications{{ end }}
+                        <span style="font-size: 0.9rem; opacity: 0.7;">({{ len $others }})</span>
+                    </summary>
+                    <div class="pub-list-container">
+                        <ul style="list-style: none; padding-left: 0;">
+                            {{ range $others }}
+                                {{ partial "pub-item.html" . }}
+                            {{ end }}
+                        </ul>
+                    </div>
+                </details>
+            {{ end }}
+        </div>
+    {{ else }}
+        <p>No data found.</p>
+    {{ end }}
+</div>
+{{ end }}

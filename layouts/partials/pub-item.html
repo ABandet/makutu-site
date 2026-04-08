@@ -1,0 +1,22 @@
+<li style="margin-bottom: 1.5rem; padding: 15px; border-left: 4px solid #005a9c; background: #fafafa; border-radius: 0 5px 5px 0;">
+    <div style="font-weight: bold; font-size: 1.1rem; line-height: 1.3;">
+        {{/* On affiche le premier titre de la liste */}}
+        {{ if reflect.IsSlice .title_s }}{{ index .title_s 0 }}{{ else }}{{ .title_s }}{{ end }}
+    </div>
+
+    <div style="font-size: 0.95rem; color: #555; margin: 5px 0;">
+        {{ if reflect.IsSlice .authFullName_s }}{{ delimit .authFullName_s ", " }}{{ else }}{{ .authFullName_s }}{{ end }}
+    </div>
+
+    <div style="font-size: 0.85rem; color: #888; font-style: italic;">
+        {{ if .journalTitle_s }}{{ .journalTitle_s }}, {{ end }}{{ .producedDateY_i }}
+        <span style="color: #bbb; font-size: 0.7rem; margin-left: 10px;">[{{ .docType_s }}]</span>
+    </div>
+
+    <div style="margin-top: 10px;">
+        <a href="{{ .uri_s }}" target="_blank" style="background: #005a9c; color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.75rem; text-decoration: none; font-weight: bold;">HAL</a>
+        {{ if .files_s }}
+            <a href="{{ index .files_s 0 }}" target="_blank" style="margin-left: 15px; font-size: 0.8rem; color: #E63312; font-weight: bold;">[PDF]</a>
+        {{ end }}
+    </div>
+</li>

@@ -1,0 +1,97 @@
+baseURL = "https://www.makutu.fr/"
+theme = "LoveIt"
+title = "Makutu"
+defaultContentLanguage = "en"
+
+[languages]
+  [languages.en]
+    weight = 1
+    languageName = "English"
+    contentDir = "content"
+    title = "Makutu"
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        identifier = "team"
+        name = "About"
+        url = "/team/"
+        weight = 1
+      [[languages.en.menu.main]]
+        identifier = "members"
+        name = "Members"
+        url = "/members/"
+        weight = 2
+      [[languages.en.menu.main]]
+        identifier = "news"
+        name = "News"
+        url = "/news/"
+        weight = 3
+      [[languages.en.menu.main]]
+        identifier = "publications"
+        name = "Publications"
+        url = "/publications/"
+        weight = 4
+
+  [languages.fr]
+    weight = 2
+    languageName = "Français"
+    contentDir = "content"
+    title = "Makutu"
+    [languages.fr.menu]
+      [[languages.fr.menu.main]]
+        identifier = "team"
+        name = "À propos"
+        url = "/fr/team/"
+        weight = 1
+      [[languages.fr.menu.main]]
+        identifier = "members"
+        name = "Membres"
+        url = "/members/"
+        weight = 2
+      [[languages.fr.menu.main]]
+        identifier = "news"
+        name = "Actualités"
+        url = "/fr/news/"
+        weight = 3
+      [[languages.fr.menu.main]]
+        identifier = "publications"
+        name = "Publications"
+        url = "/publications/"
+        weight = 4
+
+[module]
+  [[module.mounts]]
+    source = "content"
+    target = "content"
+
+  [[module.mounts]]
+    source = "data"
+    target = "data"
+
+[params]
+  version = "0.2.X"
+  hal_lab_code = "makutu"
+  mainSections = ["news"]
+
+  [params.home]
+    [params.home.profile]
+      enable = true
+      title = "Makutu"
+      subtitle = "Modeling and simulation of wave propagation"
+      typeit = true
+
+  [params.social]
+    [params.social.Linkedin]
+      weight = 0
+      id = "makutu/"
+      prefix = "https://www.linkedin.com/company/"
+      title = "Linkedin"
+
+  [params.header]
+    [params.header.title]
+      # C'est ici que le changement s'opère !
+      name = "Makutu"
+      # Optionnel : ajouter une icône avant le nom (Font Awesome)
+      pre = "<i class='fas fa-rocket fa-fw'></i>"
+      # Logo instead of text
+      logo = ""
+

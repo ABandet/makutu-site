@@ -1,0 +1,39 @@
+{{ define "content" }}
+<div class="page single">
+    <h1 class="single-title">{{ .Title }}</h1>
+
+    {{ range .Sections.ByWeight }}
+        <div class="member-category" style="margin-top: 3rem;">
+            <h2 style="border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">
+                {{ .Title }}
+            </h2>
+
+            <div class="team-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.5rem;">
+                {{ range .Pages.ByWeight }}
+                <div class="member-card" style="text-align: center;">
+
+                    {{ $link := .Params.externalLink | default .RelPermalink }}
+
+                    <a href="{{ $link }}">
+                        {{ $image := .Resources.GetMatch .Params.image }}
+                        {{ with $image }}
+                            {{ $scaled := .Fill "300x300" }}
+                            <img src="{{ $scaled.RelPermalink }}" style="border-radius: 50%; width: 130px; height: 130px; object-fit: cover;">
+                        {{ end }}
+                    </a>
+
+                    <h3 style="margin: 15px 0 5px 0; font-size: 1.1rem;">
+                        <a href="{{ $link }}" style="color: #2d3436; text-decoration: none;">{{ .Title }}</a>
+                    </h3>
+
+                    <p style="font-style: italic; color: #636e72; font-size: 0.85rem; margin: 0;">
+                        {{/* Ici on récupère role_en ou role_fr selon la langue active */}}
+                        {{ index .Params (printf "role_%s" .Language.Lang) }}
+                    </p>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+    {{ end }}
+</div>
+{{ end }}
