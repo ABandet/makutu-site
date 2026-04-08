@@ -1,4 +1,4 @@
 ---
-title: "Nos Membres"
+title: "Membres"
 layout: "members"
 ---

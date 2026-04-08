@@ -1,6 +1,7 @@
 ---
 title: "Henri Calandra"
-role: "Researcher, TotalEnergies"
+role_en: "Researcher, TotalEnergies"
+role_fr: "Chercheur, TotalEnergies"
 weight: 1
 image: "avatar.jpg"
 externalLink: ""

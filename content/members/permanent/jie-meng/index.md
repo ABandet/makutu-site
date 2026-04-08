@@ -1,6 +1,7 @@
 ---
 title: "Jie Meng"
-role: "Researcher, TotalEnergies"
+role_en: "Researcher, TotalEnergies"
+role_fr: "Chercheuse, TotalEnergies"
 weight: 6 
 image: "avatar.jpg"
 externalLink: ""

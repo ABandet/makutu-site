@@ -2,13 +2,21 @@
 <div class="page single">
     <h1 class="single-title">{{ .Title }}</h1>
 
-    {{ range .Sections.ByWeight }}
+    {{/* 1. On récupère l'objet "Site" de la langue par défaut (anglais) */}}
+    {{ $enSite := index .Sites 0 }}
+
+    {{/* 2. On récupère la section "members" spécifiquement depuis le site anglais */}}
+    {{ $membersSection := $enSite.GetPage "/members" }}
+
+    {{/* 3. On boucle sur les sous-sections du site anglais */}}
+    {{ range $membersSection.Sections.ByWeight }}
         <div class="member-category" style="margin-top: 3rem;">
             <h2 style="border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">
                 {{ .Title }}
             </h2>
 
             <div class="team-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.5rem;">
+                {{/* 4. On boucle sur les pages (membres) du site anglais */}}
                 {{ range .Pages.ByWeight }}
                 <div class="member-card" style="text-align: center;">
 
@@ -27,8 +35,11 @@
                     </h3>
 
                     <p style="font-style: italic; color: #636e72; font-size: 0.85rem; margin: 0;">
-                        {{/* Ici on récupère role_en ou role_fr selon la langue active */}}
-                        {{ index .Params (printf "role_%s" .Language.Lang) }}
+                        {{/* ATTENTION : Ici on utilise $.Language.Lang pour le rôle.
+                           $ remonte au contexte de la page actuelle (FR ou EN).
+                        */}}
+                        {{ $lang := $.Language.Lang }}
+                        {{ index .Params (printf "role_%s" $lang) }}
                     </p>
                 </div>
                 {{ end }}
