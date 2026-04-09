@@ -1,9 +1,0 @@
-- name: "John Doe"
-  role: "Lead Developer"
-  image: "images/team/john.jpg"
-  link: "https://github.com/johndoe"
-
-- name: "Jane Smith"
-  role: "UI Designer"
-  image: "" # No image for this member
-  link: "https://linkedin.com/in/janesmith"
