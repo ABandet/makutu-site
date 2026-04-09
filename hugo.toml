@@ -1,4 +1,4 @@
-baseURL = "https://www.makutu.fr/"
+baseURL = "https://makutu.fr/"
 theme = "LoveIt"
 title = "Makutu"
 defaultContentLanguage = "en"
@@ -67,6 +67,10 @@ defaultContentLanguage = "en"
     source = "data"
     target = "data"
 
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+
 [params]
   version = "0.2.X"
   hal_lab_code = "makutu"
@@ -88,10 +92,6 @@ defaultContentLanguage = "en"
 
   [params.header]
     [params.header.title]
-      # C'est ici que le changement s'opère !
+      logo = "/images/logo.png"
       name = "Makutu"
-      # Optionnel : ajouter une icône avant le nom (Font Awesome)
-      pre = "<i class='fas fa-rocket fa-fw'></i>"
-      # Logo instead of text
-      logo = ""
-
+      pre = ""
