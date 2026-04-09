@@ -75,6 +75,7 @@ defaultContentLanguage = "en"
   version = "0.2.X"
   hal_lab_code = "makutu"
   mainSections = ["news"]
+  titleIcon = "/images/logo.png"
 
   [params.home]
     [params.home.profile]
@@ -95,3 +96,7 @@ defaultContentLanguage = "en"
       logo = "/images/logo.png"
       name = "Makutu"
       pre = ""
+
+  [params.app]
+    icon = "/images/logo.png"
+    touchIcon = "/images/logo.png"
