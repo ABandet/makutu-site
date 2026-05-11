@@ -51,7 +51,16 @@
         }
     </style>
 
-    {{ $data := .Site.Data.hal_publications }}
+    {{ $url := "https://api.archives-ouvertes.fr/search/?q=structId_i:55997+OR+structId_i:1063534&wt=json&rows=1500&fl=title_s,authFullName_s,producedDateY_i,journalTitle_s,uri_s,docType_s,files_s&sort=producedDateY_i+desc" }}
+
+    {{ $resource := resources.GetRemote $url }}
+
+    {{ $data := false }}
+    {{ if $resource }}
+        {{ $data = $resource.Content | transform.Unmarshal }}
+    {{ else }}
+        {{ warnf "Failed to fetch publications from HAL API." }}
+    {{ end }}
 
     {{ if $data }}
         {{ $groups := slice
