@@ -100,3 +100,6 @@ defaultContentLanguage = "en"
   [params.app]
     icon = "/images/logo.png"
     touchIcon = "/images/logo.png"
+
+  [params.footer]
+    enable = false
