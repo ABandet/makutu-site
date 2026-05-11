@@ -17,6 +17,23 @@ git checkout -b update-john-doe-profile
 ```
 Edit the markdown files, update images, or create new folders using your preferred text editor (like VS Code). 
 
+**To create new content, use Hugo's built-in archetype generators:**
+
+**For a New Member:**
+Since members are Page Bundles (a folder containing an `index.md`), run this command:
+```bash
+hugo new members/phd/john-doe/index.md
+```
+This automatically creates the folder and populates `index.md` with the correct YAML fields. Just remember to add their `avatar.jpg` to the newly created folder!
+
+**For a New News Article:**
+You need to create both the English and French files. Run:
+```bash
+hugo new news/my-new-event.md
+hugo new news/my-new-event.fr.md
+```
+This automatically generates both files with the correct TOML frontmatter and the current date/time.
+
 You can preview your changes locally using:
 ```bash
 make serve
