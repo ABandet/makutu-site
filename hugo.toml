@@ -103,3 +103,6 @@ defaultContentLanguage = "en"
 
   [params.footer]
     enable = false
+
+[markup.goldmark.renderer]
+  unsafe = true
